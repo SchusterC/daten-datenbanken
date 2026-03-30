@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernmodul: Daten und Datenbanken</title>
+    <style>
+        :root {
+            --primary-color: #a02020;
+            --secondary-color: #0cc0df;
+            --success-color: #22c55e;
+            --light-bg: #1f2937;
+            --dark-bg: #111827;
+            --border-color: #374151;
+            --text-color: #f4f4f4;
+            --text-dark: #f4f4f4;
+            --text-light: #f4f4f4;
+            --card-bg: #1f2937;
+            --sidebar-bg: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .logo-section {
+            display: none;
+        }
+
+
+
+        .progress-section {
+            padding: 15px 20px;
+            background: var(--light-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .progress-title {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-color) 0%, var(--primary-color) 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: var(--light-bg);
+            border-left-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background: rgba(160, 32, 32, 0.1);
+            border-left-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-link .badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 11px;
+            margin-left: 8px;
+            font-weight: bold;
+        }
+
+        .nav-link.completed .badge {
+            background: var(--success-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h2 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .page-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            border: 1px solid var(--border-color);
+        }
+
+        .page-content h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        .page-content h2 {
+            font-size: 22px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .page-content h3 {
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .page-content p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .image-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Exercise Styles */
+        .exercise-box {
+            background: rgba(160, 32, 32, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .exercise-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .question {
+            margin: 15px 0;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        /* Quiz/Multiple Choice */
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            color: var(--text-dark);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(12, 192, 223, 0.1);
+        }
+
+        .quiz-option input[type="radio"],
+        .quiz-option input[type="checkbox"] {
+            margin-right: 12px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(160, 32, 32, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Text Input */
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-dark);
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(160, 32, 32, 0.2);
+            background: rgba(12, 192, 223, 0.1);
+        }
+
+        /* Matching Game */
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .matching-column {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .matching-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-color);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 13px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+        }
+
+        .matching-item:hover {
+            border-color: var(--primary-color);
+            background: rgba(12, 192, 223, 0.1);
+        }
+
+        .matching-item.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .matching-item.matched {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+            cursor: default;
+        }
+
+        /* Flashcards */
+        .flashcard {
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.6s;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 15px 0;
+        }
+
+        .flashcard:hover {
+            transform: translateY(-5px);
+        }
+
+        .flashcard.flipped {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(160, 32, 32, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #22c55e;
+        }
+
+        .btn-submit {
+            margin-top: 15px;
+            width: 100%;
+            background: var(--success-color) !important;
+            color: white !important;
+            border: none;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, var(--success-color) 0%, var(--success-color) 100%) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
+        }
+
+        /* Feedback Messages */
+        .feedback {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #dcfce7;
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            color: var(--danger-color);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        /* Score Display */
+        .score-display {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .score-display .score-value {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-buttons .btn {
+            flex: 1;
+        }
+
+        .nav-buttons .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 40vh;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+
+            .page-content {
+                padding: 20px;
+            }
+
+            .page-content h1 {
+                font-size: 24px;
+            }
+
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                gap: 10px;
+                padding: 10px 10px;
+            }
+
+            .nav-item {
+                flex-shrink: 0;
+            }
+
+            .nav-link {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+        }
+
+        /* Hidden Page */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal for Image Zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--light-bg);
+        }
+
+        /* Definition List */
+        .definition {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(160, 32, 32, 0.08);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .definition strong {
+            color: var(--primary-color);
+            font-size: 15px;
+        }
+
+        .definition-text {
+            margin-top: 8px;
+            color: var(--text-dark);
+        }
+
+        /* List Styles */
+        .content-area ul,
+        .content-area ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        .content-area li {
+            margin-bottom: 10px;
+        }
+
+        .content-area a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .content-area a:hover {
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Gaptext input styles */
+        .gap-input {
+            padding: 6px 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .gap-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(12, 192, 223, 0.1);
+        }
+
+        /* Submenu Styles */
+        .nav-submenu {
+            list-style: none;
+            padding-left: 30px;
+            margin: 5px 0;
+        }
+
+        .nav-submenu .nav-item a {
+            font-size: 13px;
+            padding-left: 10px;
+            opacity: 0.85;
+        }
+
+        .nav-submenu .nav-item a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <img src="images/Logo.png" alt="Logo">
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-title">Fortschritt</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text"><span id="progressPoints">0</span>/<span id="progressMax">45</span> Punkte</div>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a class="nav-link active" data-page="page-0" onclick="navigateToPage(0)">
+                        🏠 Startseite
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="page-1" onclick="navigateToPage(1)">
+                        📊 Daten im Alltag
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="page-2" onclick="navigateToPage(2)">
+                        🔧 Modellierung
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="page-3" onclick="navigateToPage(3)">
+                        💾 Datenbanksystem
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link" data-page="page-3b" onclick="navigateToPage(3.5)">
+                                ⚙️ Komponenten
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="page-4" onclick="navigateToPage(4)">
+                        🗂️ Relationale DB
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="page-5" onclick="navigateToPage(5)">
+                        🎯 ER-Modelle
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h2 id="pageTitle">Startseite</h2>
+                <p id="pageSubtitle">Willkommen zum Lernmodul</p>
+            </div>
+
+            <div class="content-area">
+                <!-- Page 0: Startseite -->
+                <div id="page-0" class="page active">
+                    <div class="page-content">
+                        <h1>Daten und Informationen</h1>
+                        
+                        <div class="image-container">
+                            <img src="images/resources/DB_Einfuehrung.png" alt="Übersicht Datenbanksysteme" onclick="zoomImage(this)">
+                        </div>
+
+                        <p>Daten spielen in unserem Alltag eine zentrale Rolle: Ob beim Nutzen sozialer Netzwerke, beim Online-Shopping oder in der Schule – überall werden Informationen gespeichert, verarbeitet und genutzt. Doch wie gelingt es, große Mengen an Daten strukturiert zu organisieren und gezielt darauf zuzugreifen?</p>
+
+                        <p>In diesem Lernmodul lernst du die Grundlagen von Datenbanksystemen kennen – dem Fundament der digitalen Welt. Du erfährst, wie Daten in Datenbanken gespeichert werden, welche Aufgaben ein Datenbankmanagementsystem (DBMS) übernimmt und wie Daten durch Abfragen gezielt ausgewertet werden können.</p>
+
+                        <p>Darüber hinaus bekommst du Einblick in verschiedene Arten von Datenbanken, wie zum Beispiel relationale oder hierarchische Modelle, und lernst wichtige Konzepte wie Primär- und Fremdschlüssel kennen. Diese helfen dabei, Daten eindeutig zu identifizieren und miteinander zu verknüpfen.</p>
+
+                        <p>Am Ende des Moduls wirst du verstehen, wie Daten strukturiert werden, wie mehrere Nutzer gleichzeitig mit Daten arbeiten können und warum Sicherheit und Zugriffsrechte in Datenbanksystemen eine wichtige Rolle spielen.</p>
+
+                        <p><strong>Dieses Wissen bildet die Grundlage dafür, später selbst Datenbanken zu entwickeln und effektiv mit ihnen zu arbeiten.</strong></p>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(1)">Zum nächsten Kapitel →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 1: Daten im Alltag -->
+                <div id="page-1" class="page">
+                    <div class="page-content">
+                        <h1>Daten im Alltag</h1>
+
+                        <h2>Wo werden überall Daten über dich gespeichert?</h2>
+                        <p>Denke über deinen Alltag nach: Welche Apps, Webseiten oder Institutionen speichern Daten über dich?</p>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">✏️ Aufgabe 1: Datenquellen identifizieren</div>
+                            <div class="question-text">Notiere mindestens 10 Beispiele, bei denen Daten über dich gespeichert werden, z.B. soziale Netzwerke, Schule, Online-Shops, Streaming-Dienste. Ergänze auch, welche Daten gespeichert werden (z.B. Name, Fotos, Standort).</div>
+                            <div style="margin-top: 15px; padding: 12px; background: var(--card-bg); border-radius: 8px; border-left: 3px solid var(--secondary-color);">
+                                <p style="color: var(--secondary-color); margin: 0; font-size: 14px;">
+                                    <strong>💡</strong> Gib deine Begriffe in dieser 
+                                    <a href="https://app.fobizz.com/word_clouds/public_word_clouds/bc95d3cb-5064-405b-8821-daf38b6831c6?token=808d5a120153f45366bacb54366ec56a" target="_blank" style="color: var(--secondary-color); text-decoration: underline;">interaktiven Wortwolke</a> ein.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h2>Wichtige Begriffe</h2>
+
+                        <div class="image-container">
+                            <img src="images/resources/daten_informationen_500px.png" alt="Daten und Informationen" onclick="zoomImage(this)">
+                        </div>
+
+                        <div class="definition">
+                            <strong>Daten</strong>
+                            <div class="definition-text">
+                                Daten sind maschinenlesbare und maschinell bearbeitbare digitale Repräsentationen von Informationen.
+                            </div>
+                        </div>
+
+                        <div style="padding: 15px; border-radius: 8px; margin: 15px 0; border: 3px solid var(--primary-color); background: transparent; color: white;">
+                            <strong style="color: white;">💡 Merksatz:</strong>
+                            <p style="margin-top: 8px; color: white;">Daten sind einzelne, noch nicht eingeordnete Werte. Informationen entstehen, wenn Daten in einen Zusammenhang gebracht und interpretiert werden.</p>
+                        </div>
+
+                        <div class="definition">
+                            <strong>Datenstrukturen</strong>
+                            <div class="definition-text">
+                                Datenstrukturen beschreiben die Art, wie Daten zusammengefasst oder geordnet werden. In der Praxis werden Daten häufig in einer linearen Struktur in Form von Tabellen abgebildet.
+                                <ul style="margin-top: 10px;">
+                                    <li>Lineare Strukturen (Tabellen, Texte)</li>
+                                    <li>Hierarchische Strukturen (Baumstruktur, Rangfolgen)</li>
+                                    <li>Vernetzte Strukturen (Verknüpfung von Daten untereinander, z.B. Wikipedia, WWW)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">🎯 Quiz: Grundbegriffe</div>
+                            
+                            <div class="question">
+                                <div class="question-text">1. Was ist der Unterschied zwischen Daten und Informationen?</div>
+                                <label class="quiz-option">
+                                    <input type="radio" name="q1" value="a"> Daten sind verarbeitete Informationen
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="q1" value="b"> Daten sind einzelne Werte, Informationen entstehen durch Einordnung
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="q1" value="c"> Es gibt keinen Unterschied
+                                </label>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text">2. Welche Datenstruktur wird am häufigsten verwendet?</div>
+                                <label class="quiz-option">
+                                    <input type="radio" name="q2" value="a"> Lineare Struktur (Tabellen)
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="q2" value="b"> Hierarchische Struktur
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="q2" value="c"> Vernetzte Struktur
+                                </label>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="checkQuiz('page-1')">Antworten überprüfen</button>
+                            <div class="feedback" id="quizFeedback-page-1"></div>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(0)">← Zurück</button>
+                            <button class="btn btn-primary" onclick="navigateToPage(2)">Weiter →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 2: Modellierung -->
+                <div id="page-2" class="page">
+                    <div class="page-content">
+                        <h1>Modelle und Modellierung</h1>
+
+                        <h2>Video-Beispiel: Barbie als Modell</h2>
+                        <p>Schau dir den Barbie-Trailer an.  Welche Unterschiede zwischen der dargestellten Barbie-Welt und der realen Welt existieren:</p>
+
+                        <div style="margin: 20px 0; padding: 15px; background: var(--card-bg); border-radius: 8px; border-left: 3px solid var(--primary-color);">
+                            <a href="https://youtu.be/eBvCo1ImAH4?si=kiKGc-8o7ZjYyUlE" target="_blank" style="color: var(--secondary-color); text-decoration: none;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="font-size: 24px;">▶️</span>
+                                    <div>
+                                        <div style="color: var(--secondary-color); font-weight: bold;">Barbie-Trailer anschauen</div>
+                                        <div style="color: var(--text-light); font-size: 12px;">youtu.be/eBvCo1ImAH4</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">✏️ Aufgabe: Barbie-Welt analysieren</div>
+                            <div class="question-text">Erkläre, warum die Barbie-Welt nicht der Realität entspricht.</div>
+                            <textarea class="text-input" id="barbie-task" rows="6" placeholder="Die Barbie-Welt ist ein vereinfachtes Modell, weil..."></textarea>
+                            <button class="btn btn-success btn-submit" onclick="saveMemo('barbie-task')">Antwort speichern</button>
+                            <div class="feedback" id="barbie-feedback"></div>
+                        </div>
+
+                        <h2>Die Rolle von Modellen in der Informatik</h2>
+                        <p>Modelle spielen eine zentrale Rolle in der Informatik, weil sie die Realität vereinfacht darstellen. Ein Modell ist eine Abbildung der Realität, die bestimmte Aspekte hervorhebt und andere vereinfacht oder ausblendet.</p>
+
+                        <div class="definition">
+                            <strong>Informatisches Modell</strong>
+                            <div class="definition-text">
+                                Ein informatisches Modell ist eine vereinfachte Darstellung eines realen Systems, die folgende Eigenschaften hat:
+                                <ul style="margin-top: 10px;">
+                                    <li><strong>Abbildung der Realität:</strong> Das Modell stellt reale Aspekte dar</li>
+                                    <li><strong>Vereinfachung:</strong> Es werden nur wichtige Aspekte berücksichtigt</li>
+                                    <li><strong>Abstraktion:</strong> Komplexe Vorgänge werden auf wesentliche Merkmale reduziert</li>
+                                    <li><strong>Zweckorientierung:</strong> Das Modell dient einem bestimmten Zweck</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="image-container">
+                            <img src="images/resources/ChatGPT_Image_23._Maerz_2026_22_31_11.png" alt="Beispiele für Modelle" onclick="zoomImage(this)">
+                        </div>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">🔍 Übung: Modelle erkennen</div>
+                            <div class="question-text">Begründe, dass die folgenden Beispiele informatische Modelle sind, indem du die Eigenschaften eines Modells überprüfst.</div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>a) Wettervorhersage</strong></div>
+                                <p style="margin-bottom: 10px; color: var(--text-light); font-size: 13px;">Warum ist eine Wettervorhersage ein informatisches Modell?</p>
+                                <textarea class="text-input" rows="5" id="answer-weather" placeholder="Erkläre mit allen vier Eigenschaften (Abbildung, Vereinfachung, Abstraktion, Zweckorientierung)..."></textarea>
+                                <div class="feedback" id="feedback-weather"></div>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>b) Videospiel</strong></div>
+                                <p style="margin-bottom: 10px; color: var(--text-light); font-size: 13px;">Warum ist ein Jump&Run-Spiel ein informatisches Modell?</p>
+                                <textarea class="text-input" rows="5" id="answer-game" placeholder="Erkläre mit allen vier Eigenschaften..."></textarea>
+                                <div class="feedback" id="feedback-game"></div>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>c) Augmented Reality</strong></div>
+                                <p style="margin-bottom: 10px; color: var(--text-light); font-size: 13px;">Warum ist Augmented Reality ein informatisches Modell?</p>
+                                <textarea class="text-input" rows="5" id="answer-ar" placeholder="Erkläre mit allen vier Eigenschaften..."></textarea>
+                                <div class="feedback" id="feedback-ar"></div>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="saveMemo('answer-weather', 'answer-game', 'answer-ar')">Antworten speichern</button>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(1)">← Zurück</button>
+                            <button class="btn btn-primary" onclick="navigateToPage(3)">Weiter →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 3: Datenbanksystem -->
+                <div id="page-3" class="page">
+                    <div class="page-content">
+                        <h1>Datenbanksystem</h1>
+
+                        <h2>Ein praktisches Beispiel: Supermarkt</h2>
+
+                        <div class="image-container">
+                            <img src="images/resources/ChatGPT_Image_25._Maerz_2026_22_06_54.png" alt="Datenbanksystem im Supermarkt" onclick="zoomImage(this)">
+                        </div>
+
+                        <p>In einer Supermarktkette fallen täglich viele Daten an, zum Beispiel Preise, Verkaufszahlen, Lagerbestände oder Informationen über Lieferanten. Damit all diese Daten sinnvoll genutzt werden können, werden sie in einer Datenbank gespeichert. Eine Datenbank ist also ein strukturierter Speicher für viele zusammenhängende Informationen. Damit diese Daten aber nicht einfach ungeordnet herumliegen, braucht man zusätzlich ein Datenbankmanagementsystem (DBMS). Zusammen bilden beide das sogenannte Datenbanksystem (DBS).</p>
+
+                        <p>Im dargestellten Beispiel befindet sich im Zentrum ein Zentralrechner, der die Datenbank enthält. In dieser Datenbank werden wichtige Informationen gespeichert, zum Beispiel Lieferantendaten, Lagerbestände, Preislisten oder automatische Bestellungen. Das DBMS sorgt dafür, dass diese Daten organisiert werden und dass verschiedene Nutzer gleichzeitig darauf zugreifen können, ohne dass Fehler entstehen.</p>
+
+                        <p>Die Verwaltung nutzt das System, um Daten zu bearbeiten, zu sortieren und zu aktualisieren. Wenn sich zum Beispiel ein Preis ändert oder ein neues Produkt aufgenommen wird, wird dies hier in die Datenbank eingetragen. An der Kasse werden ebenfalls Daten verwendet und erzeugt. Beim Bezahlen werden Preise aus der Datenbank abgerufen und gleichzeitig neue Informationen gespeichert, etwa welche Produkte verkauft wurden und wie hoch der Umsatz ist.</p>
+
+                        <p>Auch das Großlager arbeitet mit der Datenbank. Dort werden Informationen über Bestände, Verfallsdaten und Lagerplätze gespeichert. So weiß das System jederzeit, wie viele Produkte noch vorhanden sind. Im Markt, also im Supermarkt selbst, werden diese Daten genutzt, um den Warenbestand in den Regalen zu überwachen. Wenn ein Produkt knapp wird, kann automatisch eine Bestellung ausgelöst werden.</p>
+
+                        <p>Alle diese Bereiche sind über ein Netzwerk miteinander verbunden und greifen auf dieselbe Datenbank zu. Dadurch sind die Daten immer aktuell. Gleichzeitig sorgt das Datenbanksystem für Sicherheit, zum Beispiel durch Zugriffsrechte und Datensicherung. So wird verhindert, dass Daten verloren gehen oder unbefugt verändert werden.</p>
+
+                        <h2>Matching-Übung</h2>
+                        <div class="exercise-box">
+                        
+                            <p style="margin-bottom: 15px; color: var(--text-light);">Ordne die Begriffe ihren korrekten Definitionen zu!</p>
+                            
+                            <div class="matching-container">
+                                <div class="matching-column">
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Datenbank')" data-term="Datenbank">Datenbank</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'DBMS')" data-term="DBMS">DBMS</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'DBS')" data-term="DBS">DBS</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Datensatz')" data-term="Datensatz">Datensatz</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Zugriffsrechte')" data-term="Zugriffsrechte">Zugriffsrechte</div>
+                                </div>
+                                <div class="matching-column">
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Strukturierter Speicher für viele zusammenhängende Daten.')" data-definition="def1">Strukturierter Speicher...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Software, die den Zugriff auf die Daten steuert und verwaltet.')" data-definition="def2">Software, die Zugriff steuert...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Kombination aus Datenbank und DBMS.')" data-definition="def3">Kombination aus DB und DBMS...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Zusammengehörige Informationen zu einem Objekt.')" data-definition="def4">Zusammengehörige Informationen...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Regeln, wer Daten sehen oder ändern darf.')" data-definition="def5">Regeln für Daten-Zugriff...</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-success btn-submit" onclick="checkMatching()">Abgleich überprüfen</button>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(2)">← Zurück</button>
+                            <button class="btn btn-primary" onclick="navigateToPage(4)">Weiter →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 3b: Komponenten eines Datenbanksystems -->
+                <div id="page-3b" class="page">
+                    <div class="page-content">
+                        <h1>Komponenten eines Datenbanksystems</h1>
+
+                        <div class="image-container">
+                            <img src="images/resources/ChatGPT_Image_25._Maerz_2026_23_04_42.png" alt="Komponenten eines Datenbanksystems" onclick="zoomImage(this)">
+                        </div>
+
+                        <h2>Die drei Hauptkomponenten</h2>
+
+                        <div class="definition">
+                            <strong>Datenbasis</strong>
+                            <div class="definition-text">
+                                In der Datenbasis werden die „Rohdaten" in Form von Tabellen gespeichert, die im Zuge der Datenbankentwicklung erstellt und anschließend mit Daten gefüllt wurden. Diese Daten sind dynamisch, das heißt, sie können sich ständig verändern. Ein Beispiel dafür ist ein Online-Shop: Wenn ein Artikel gekauft wird, verringert sich automatisch die verfügbare Menge im System.
+                            </div>
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>Datenbankmanagementsystem (DBMS)</strong>
+                            <div class="definition-text">
+                                Das Datenbankmanagementsystem organisiert und steuert die Tabellen einer Datenbank. Es ermöglicht, Daten gezielt abzufragen, zu verändern sowie neue Tabellen zu erstellen oder bestehende zu löschen. Dafür wird häufig die Sprache SQL verwendet. Beispiel: Kaufst du etwas in einem Onlineshop, passt das DBMS die verfügbare Menge in der entsprechenden Tabelle an und fügt den Artikel deinem Warenkorb hinzu.
+                            </div>
+                        </div>
+
+                        <div class="definition">
+                            <strong>Anwenderschnittstelle</strong>
+                            <div class="definition-text">
+                                Die Anwenderschnittstelle stellt verschiedenen Nutzern eine an ihre Bedürfnisse angepasste Oberfläche zur Verfügung. Beispiel: In der App eines Onlineshops kannst du als Kunde nach bestimmten Merkmalen wie Größe, Farbe oder Preis suchen. Dafür stehen dir Auswahlmenüs oder Schieberegler zur Verfügung. Diese Oberfläche ist speziell für dich gestaltet. Das Datenbankmanagementsystem verarbeitet deine Eingaben und zeigt dir die passenden Ergebnisse in der App an.
+                            </div>
+                        </div>
+
+                        <h2>Matching-Übung</h2>
+                        <div class="exercise-box">
+                            <p style="margin-bottom: 15px; color: var(--text-light);">Ordne die Begriffe ihren korrekten Definitionen zu!</p>
+                            
+                            <div class="matching-container">
+                                <div class="matching-column">
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Datenbank')" data-term="Datenbank">Datenbank</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'DBMS')" data-term="DBMS">DBMS</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'DBS')" data-term="DBS">DBS</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Datensatz')" data-term="Datensatz">Datensatz</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Zugriffsrechte')" data-term="Zugriffsrechte">Zugriffsrechte</div>
+                                </div>
+                                <div class="matching-column">
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Strukturierter Speicher für viele zusammenhängende Daten.')" data-definition="def1">Strukturierter Speicher...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Software, die den Zugriff auf die Daten steuert und verwaltet.')" data-definition="def2">Software, die Zugriff steuert...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Kombination aus Datenbank und DBMS.')" data-definition="def3">Kombination aus DB und DBMS...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Zusammengehörige Informationen zu einem Objekt.')" data-definition="def4">Zusammengehörige Informationen...</div>
+                                    <div class="matching-item" onclick="selectMatchingItem(this, 'Regeln, wer Daten sehen oder ändern darf.')" data-definition="def5">Regeln für Daten-Zugriff...</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-success btn-submit" onclick="checkMatching()">Abgleich überprüfen</button>
+                        </div>
+
+                        <h2>Weitere Lernressourcen</h2>
+                        <div style="background: rgba(34, 197, 94, 0.1); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin: 20px 0;">
+                            <p style="margin-bottom: 15px; color: var(--secondary-color);"><strong>💡 Vertiefendes Lernmaterial:</strong></p>
+                            <p style="margin-bottom: 10px; color: var(--text-dark);">Weitere Informationen zu Datenbanksystemen findest du in dieser interaktiven Ressource:</p>
+                            <a href="https://www.learningsnacks.de/share/414877/" target="_blank" style="display: inline-block; margin-top: 10px;" class="btn btn-primary">
+                                🎮 Learning-Snack: Datenbanken erforschen
+                            </a>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(3)">← Zurück</button>
+                            <button class="btn btn-primary" onclick="navigateToPage(4)">Weiter →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 4: Relationale Datenbank -->
+                <div id="page-4" class="page">
+                    <div class="page-content">
+                        <h1>Relationale Datenbank</h1>
+
+                        <h2>Praktisches Beispiel: Geoinformationssystem</h2>
+
+                        <p>Ein Informatikkurs erstellt die Datenbasis für ein Geoinformationssystem über deutsche Großstädte. Dazu wurden Daten über Städte, Bevölkerung und geografische Merkmale gesammelt.</p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                            <div class="image-container">
+                                <img src="images/resources/Screenshot_2026-03-25_215002.png" alt="Datendarstellung - Variante 1" onclick="zoomImage(this)" style="max-width: 100%;">
+                            </div>
+
+                            <div class="image-container">
+                                <img src="images/resources/Screenshot_2026-03-25_2150021.png" alt="Datendarstellung - Variante 2" onclick="zoomImage(this)" style="max-width: 100%;">
+                            </div>
+                        </div>
+
+                        <h2>Aufgabe: Datendarstellung analysieren</h2>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">📋 Kritische Analyse der Datendarstellung</div>
+                            
+                            <div class="question">
+                                <div class="question-text">Analysiere die beiden Varianten:</div>
+                                <ol style="margin: 15px 0; padding-left: 20px;">
+                                    <li><strong>Wo liegen Probleme in der Datendarstellung?</strong> Beschreibe Redundanzen und Inkonsistenzen.</li>
+                                    <li><strong>Welche Darstellung ist vorzuziehen und warum?</strong> Begründe deine Antwort mit Konzepten der relationalen Datenbanken.</li>
+                                    <li><strong>Worauf müssen die Gruppen in Zukunft achten?</strong> Gib Best Practices an.</li>
+                                </ol>
+                                <textarea class="text-input" rows="10" id="geoTask" placeholder="Deine Analyse hier..."></textarea>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="saveMemo('geoTask')">Antwort speichern</button>
+                            <div class="feedback" id="geo-feedback"></div>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(3.5)">← Zurück</button>
+                            <button class="btn btn-primary" onclick="navigateToPage(5)">Weiter →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 5: ER-Modelle -->
+                <div id="page-5" class="page">
+                    <div class="page-content">
+                        <h1>Entity-Relationship-Modelle (ER-Modelle)</h1>
+
+                        <h2>Lückentext: ER-Modellierung</h2>
+
+                        <p style="color: var(--text-light); margin-bottom: 20px;">
+                            Schaue dir dieses <a href="https://studyflix.de/informatik/er-modell-7476?topic_id=16" target="_blank" style="color: var(--secondary-color); text-decoration: underline; cursor: pointer;">Lernvideo von StudyFlix</a> an und bearbeite dann den Lückentext.
+                        </p>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">✏️ ER-Modell Lückentext</div>
+                            
+                            <div style="margin: 20px 0;">
+                                <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 15px;">
+                                    Ein <input type="text" id="gap1" class="gap-input" placeholder="..." style="width: 120px;"> ist eine Klasse von Objekten der realen Welt, die wir in der Datenbank speichern möchten. Ein <input type="text" id="gap2" class="gap-input" placeholder="..." style="width: 120px;"> ist eine Eigenschaft einer Entität. Der <input type="text" id="gap3" class="gap-input" placeholder="..." style="width: 140px;"> ist ein Attribut, das jede Entität eindeutig identifiziert. Eine <input type="text" id="gap4" class="gap-input" placeholder="..." style="width: 120px;"> beschreibt die Verbindung zwischen Entitäten. Es gibt drei Arten von Kardinalitäten: <input type="text" id="gap5" class="gap-input" placeholder="..." style="width: 60px;">, <input type="text" id="gap6" class="gap-input" placeholder="..." style="width: 60px;"> und <input type="text" id="gap7" class="gap-input" placeholder="..." style="width: 60px;"/>. Eine <input type="text" id="gap8" class="gap-input" placeholder="..." style="width: 130px;"/> Beziehung bedeutet Eins-zu-Viele. Eine <input type="text" id="gap9" class="gap-input" placeholder="..." style="width: 130px;"/> Beziehung bedeutet Viele-zu-Viele.
+                                </p>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="checkGapText()">Antworten überprüfen</button>
+                            <div class="feedback" id="gaptext-feedback" style="margin-top: 15px;"></div>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(4)">← Zurück</button>
+                            <button class="btn btn-success" onclick="finishCourse()">✅ Kurs abschließen</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" class="modal" onclick="closeImageModal()">
+        <button class="modal-close" onclick="closeImageModal()">✕</button>
+        <img id="modalImage" class="modal-content" alt="Vergrößert">
+    </div>
+
+    <script>
+        // State Management
+        let currentPage = 0;
+        let scores = {
+            'page-1': 0,
+            'page-2': 0,
+            'page-3': 0,
+            'page-3b': 0,
+            'page-4': 0,
+            'page-5': 0
+        };
+        let savedAnswers = {};
+
+        // Initialize
+        function initializeApp() {
+            loadProgress();
+            attachEventListeners();
+        }
+
+        // Navigation
+        function navigateToPage(pageIndex) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // Define page mappings
+            const pageMap = {
+                0: 'page-0',
+                1: 'page-1',
+                2: 'page-2',
+                3: 'page-3',
+                3.5: 'page-3b',
+                4: 'page-4',
+                5: 'page-5'
+            };
+            
+            const pageId = pageMap[pageIndex];
+            if (pageId && document.getElementById(pageId)) {
+                document.getElementById(pageId).classList.add('active');
+                currentPage = pageIndex;
+                
+                // Update navigation
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                
+                // Update header
+                const titles = {
+                    0: 'Startseite',
+                    1: 'Daten im Alltag',
+                    2: 'Modelle und Modellierung',
+                    3: 'Datenbanksystem',
+                    3.5: 'Komponenten eines Datenbanksystems',
+                    4: 'Relationale Datenbank',
+                    5: 'Entity-Relationship-Modelle'
+                };
+                document.getElementById('pageTitle').textContent = titles[pageIndex];
+                
+                // Scroll to top
+                document.querySelector('.content-area').scrollTop = 0;
+                
+                // Shuffle matching items for page 3
+                if (pageIndex === 3) {
+                    setTimeout(shuffleMatchingItems, 100);
+                }
+            }
+        }
+
+        // Check Gaptext function
+        function checkGapText() {
+            const correctAnswers = {
+                'gap1': 'entity|entität',
+                'gap2': 'attribut',
+                'gap3': 'primärschlüssel|schlüssel',
+                'gap4': 'relationship|beziehung',
+                'gap5': '1:1',
+                'gap6': '1:n',
+                'gap7': 'm:n',
+                'gap8': '1:n',
+                'gap9': 'm:n'
+            };
+
+            let correctCount = 0;
+            const totalGaps = Object.keys(correctAnswers).length;
+            const feedback = document.getElementById('gaptext-feedback');
+            let feedbackHTML = '<div style="margin: 15px 0;">';
+
+            for (let gapId in correctAnswers) {
+                const input = document.getElementById(gapId);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctPatterns = correctAnswers[gapId].split('|');
+                const isCorrect = correctPatterns.some(pattern => userAnswer === pattern);
+
+                if (isCorrect) {
+                    correctCount++;
+                    input.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
+                    input.style.borderColor = 'var(--success-color)';
+                } else {
+                    input.style.backgroundColor = 'rgba(160, 32, 32, 0.2)';
+                    input.style.borderColor = 'var(--primary-color)';
+                }
+            }
+
+            feedbackHTML += '<strong>Ergebnis: ' + correctCount + '/' + totalGaps + ' Antworten korrekt</strong><br>';
+
+            if (correctCount === totalGaps) {
+                feedbackHTML += '✅ <strong>Ausgezeichnet!</strong> Du hast alle Fragen richtig beantwortet! Du hast die Grundlagen von ER-Modellen gut verstanden.';
+                scores['page-5'] = 10;
+                feedback.style.color = 'var(--success-color)';
+            } else if (correctCount >= Math.ceil(totalGaps * 0.7)) {
+                feedbackHTML += '✅ <strong>Sehr gut!</strong> Du hast die meisten Fragen richtig beantwortet. Überprüfe die roten Felder nochmal.';
+                scores['page-5'] = 8;
+                feedback.style.color = 'var(--accent-color)';
+            } else if (correctCount >= Math.ceil(totalGaps * 0.5)) {
+                feedbackHTML += '👍 <strong>Gute Anstrengung!</strong> Du verstehst einige Konzepte, solltest aber das Video nochmal anschauen, besonders die roten Felder.';
+                scores['page-5'] = 5;
+                feedback.style.color = 'var(--accent-color)';
+            } else {
+                feedbackHTML += '📺 <strong>Tipp:</strong> Schaue das Video nochmal an und konzentriere dich auf die Definitionen der Konzepte.';
+                scores['page-5'] = 0;
+                feedback.style.color = 'var(--text-light)';
+            }
+
+            feedbackHTML += '</div>';
+            feedback.innerHTML = feedbackHTML;
+            updateProgress();
+        }
+
+        // Shuffle matching items function
+        function shuffleMatchingItems() {
+            const matchingColumns = document.querySelectorAll('.matching-column');
+            if (matchingColumns.length > 1) {
+                const rightColumn = matchingColumns[1];
+                const items = Array.from(rightColumn.querySelectorAll('.matching-item'));
+                
+                // Fisher-Yates shuffle algorithm
+                for (let i = items.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const temp = items[i];
+                    items[i] = items[j];
+                    items[j] = temp;
+                }
+                
+                // Re-append shuffled items
+                items.forEach(item => rightColumn.appendChild(item));
+            }
+        }
+
+        // Quiz functionality
+        function checkQuiz(pageId) {
+            let score = 0;
+            const maxScore = 2;
+
+            // Question 1 - Answer should be 'b'
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            if (q1Answer && q1Answer.value === 'b') {
+                score++;
+                q1Answer.closest('.quiz-option').classList.add('correct');
+            } else if (q1Answer) {
+                q1Answer.closest('.quiz-option').classList.add('incorrect');
+            }
+
+            // Question 2 - Answer should be 'a'
+            const q2Answer = document.querySelector('input[name="q2"]:checked');
+            if (q2Answer && q2Answer.value === 'a') {
+                score++;
+                q2Answer.closest('.quiz-option').classList.add('correct');
+            } else if (q2Answer) {
+                q2Answer.closest('.quiz-option').classList.add('incorrect');
+            }
+
+            // Show feedback
+            const feedback = document.getElementById('quizFeedback-' + pageId);
+            if (feedback) {
+                feedback.classList.add('show');
+                if (score === maxScore) {
+                    feedback.classList.add('correct');
+                    feedback.textContent = `✅ Ausgezeichnet! Du hast alle Fragen richtig beantwortet! (${score}/${maxScore})`;
+                    scores[pageId] = score;
+                } else {
+                    feedback.classList.remove('correct');
+                    feedback.classList.add('incorrect');
+                    feedback.textContent = `❌ Du hast ${score}/${maxScore} Fragen richtig beantwortet. Bitte versuche es erneut!`;
+                }
+                updateProgress();
+            }
+        }
+
+        // Matching functionality
+        let matchingPairs = {
+            'Datenbank': 'Strukturierter Speicher für viele zusammenhängende Daten.',
+            'DBMS': 'Software, die den Zugriff auf die Daten steuert und verwaltet.',
+            'DBS': 'Kombination aus Datenbank und DBMS.',
+            'Datensatz': 'Zusammengehörige Informationen zu einem Objekt.',
+            'Zugriffsrechte': 'Regeln, wer Daten sehen oder ändern darf.'
+        };
+
+        let selectedPairs = {};
+
+        function selectMatchingItem(element, pair) {
+            element.classList.toggle('selected');
+            
+            // Store the selection
+            const columnIndex = element.parentElement.className.includes('matching-column') ? 
+                (Array.from(element.parentElement.parentElement.children).indexOf(element.parentElement)) : 0;
+            
+            if (element.classList.contains('selected')) {
+                selectedPairs[pair] = true;
+            } else {
+                delete selectedPairs[pair];
+            }
+        }
+
+        function checkMatching() {
+            let correctCount = 0;
+            let allItems = document.querySelectorAll('.matching-item');
+            
+            // Simple feedback for matching exercise
+            if (Object.keys(selectedPairs).length >= 3) {
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback show correct';
+                feedback.textContent = '✅ Gute Arbeit! Du hast eine Übereinstimmung gefunden!';
+                document.querySelector('.matching-container').parentElement.appendChild(feedback);
+                scores['page-3'] = Math.max(scores['page-3'], 3);
+                updateProgress();
+            }
+        }
+
+        // Drag & Drop functionality
+        let draggedElement = null;
+        const dragDropPairs = {};
+
+        function dragStart(event) {
+            draggedElement = event.target;
+            event.target.style.opacity = '0.5';
+            event.dataTransfer.effectAllowed = 'move';
+        }
+
+        function dragEnd(event) {
+            event.target.style.opacity = '1';
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+            event.target.style.background = 'rgba(12, 192, 223, 0.2)';
+            event.target.style.borderColor = '#0cc0df';
+        }
+
+        function dragLeave(event) {
+            event.target.style.background = '';
+            event.target.style.borderColor = '';
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            event.target.style.background = '';
+            event.target.style.borderColor = '';
+            
+            if (draggedElement && event.target.classList.contains('matching-item')) {
+                const term = draggedElement.dataset.term;
+                const definition = event.target.dataset.definition;
+                
+                // Store the pairing
+                dragDropPairs[term] = { element: draggedElement, target: event.target };
+                
+                // Visual feedback
+                if (draggedElement.textContent.includes(term)) {
+                    event.target.style.borderColor = '#22c55e';
+                    event.target.style.background = 'rgba(34, 197, 94, 0.1)';
+                }
+            }
+        }
+
+        function checkDragDropMatching() {
+            const correctMappings = {
+                'Konsistenz': 'def1',
+                'Integrität': 'def2',
+                'Redundanzfreiheit': 'def3'
+            };
+            
+            let correctCount = 0;
+            for (const [term, correctDef] of Object.entries(correctMappings)) {
+                if (dragDropPairs[term] && dragDropPairs[term].target.dataset.definition === correctDef) {
+                    correctCount++;
+                }
+            }
+            
+            const feedbackEl = document.getElementById('dragdrop-feedback');
+            if (correctCount === 3) {
+                feedbackEl.innerHTML = '✅ Perfekt! Alle Merkmale richtig zugeordnet!';
+                feedbackEl.classList.add('feedback', 'show', 'correct');
+                scores['page-3'] = Math.max(scores['page-3'], 2);
+                updateProgress();
+            } else if (correctCount > 0) {
+                feedbackEl.innerHTML = `⚠️ ${correctCount} von 3 richtig. Versuche es nochmal!`;
+                feedbackEl.classList.add('feedback', 'show');
+            } else {
+                feedbackEl.innerHTML = '❌ Versuche, die Merkmale den Definitionen zuzuordnen.';
+                feedbackEl.classList.add('feedback', 'show');
+            }
+        }
+
+        // Flashcard functionality
+        const flashcardStates = [false, false, false];
+
+        function toggleFlashcard(index) {
+            const frontId = `flashcard-${index + 1}-front`;
+            const backId = `flashcard-${index + 1}-back`;
+            const front = document.getElementById(frontId);
+            const back = document.getElementById(backId);
+            
+            if (flashcardStates[index]) {
+                front.style.display = 'block';
+                back.style.display = 'none';
+            } else {
+                front.style.display = 'none';
+                back.style.display = 'block';
+            }
+            flashcardStates[index] = !flashcardStates[index];
+        }
+
+        // Save memo functionality
+        function saveMemo(...elementIds) {
+            let allFilled = true;
+            let totalLength = 0;
+            
+            for (let id of elementIds) {
+                const element = document.getElementById(id);
+                if (!element || !element.value.trim()) {
+                    allFilled = false;
+                    break;
+                }
+                totalLength += element.value.trim().length;
+                savedAnswers[id] = element.value;
+            }
+
+            if (allFilled) {
+                // Determine page and get feedback element
+                let pageKey = 'page-1';
+                const firstId = elementIds[0];
+                let feedbackElementIds = [];
+                let sampleSolutions = {};
+                
+                // Map all element IDs to their feedback and solutions
+                for (let id of elementIds) {
+                    if (id.includes('task') || id.includes('task')) {
+                        pageKey = 'page-1';
+                        feedbackElementIds.push('feedback1');
+                        sampleSolutions['feedback1'] = '<strong>Musterlösung:</strong><br>Beispiele für Datenquellen: Soziale Netzwerke (Name, Profilbild, Freundesliste), Schule (Noten, Adresse, Geburtsdatum), Online-Shops (Bestellungen, Zahlungsdaten, Adresse), Streaming-Dienste (Filmverlauf, Bewertungen), Handy (Kontakte, Standort, Anrufliste), E-Mail (Nachrichten, Kontakte), Bank (Kontonummer, Transaktionen), Versicherung (Versicherungsnummer, Kundendaten).';
+                    } else if (id.includes('weather')) {
+                        pageKey = 'page-2';
+                        feedbackElementIds.push('feedback-weather');
+                        sampleSolutions['feedback-weather'] = '<strong>Musterlösung:</strong><br><strong>Abbildung der Realität:</strong> Reale Wetterprozesse (Temperatur, Druck, Wind) werden dargestellt.<br><strong>Vereinfachung:</strong> Nur ausgewählte Messwerte werden genutzt, nicht alle physikalischen Einflüsse.<br><strong>Abstraktion:</strong> Komplexe Naturvorgänge werden durch mathematische Modelle und Daten beschrieben.<br><strong>Zweckorientierung:</strong> Ziel ist die Vorhersage des Wetters.<br><strong>Grenzen:</strong> Vorhersagen sind nie exakt, da nicht alle Faktoren erfasst werden können.';
+                    } else if (id.includes('game')) {
+                        pageKey = 'page-2';
+                        feedbackElementIds.push('feedback-game');
+                        sampleSolutions['feedback-game'] = '<strong>Musterlösung:</strong><br><strong>Abbildung der Realität:</strong> Bewegungen, Schwerkraft oder Kollisionen orientieren sich an der realen Welt.<br><strong>Vereinfachung:</strong> Physik ist stark vereinfacht (z.B. Sprungkurven, keine realistische Reibung).<br><strong>Abstraktion:</strong> Spielfiguren, Level und Objekte sind Datenstrukturen im Programm.<br><strong>Zweckorientierung:</strong> Ziel ist Unterhaltung bzw. Simulation einer Spielwelt.<br><strong>Grenzen:</strong> Die Spielwelt ist künstlich und bildet Realität nur teilweise ab.';
+                    } else if (id.includes('ar')) {
+                        pageKey = 'page-2';
+                        feedbackElementIds.push('feedback-ar');
+                        sampleSolutions['feedback-ar'] = '<strong>Musterlösung:</strong><br><strong>Abbildung der Realität:</strong> Reale Umgebung wird digital ergänzt (z.B. Einblendung von Objekten).<br><strong>Vereinfachung:</strong> Die Umgebung wird nur teilweise erkannt (z.B. Flächen, Marker).<br><strong>Abstraktion:</strong> Reale Welt wird durch Sensordaten und Modelle im System repräsentiert.<br><strong>Zweckorientierung:</strong> Nutzung z.B. für Navigation, Spiele oder Visualisierung.<br><strong>Grenzen:</strong> Erkennung ist ungenau, digitale Objekte passen nicht immer perfekt zur Realität.';
+                    } else if (id.includes('barbie')) {
+                        pageKey = 'page-2';
+                        feedbackElementIds.push('barbie-feedback');
+                        sampleSolutions['barbie-feedback'] = '<strong>Musterlösung:</strong><br>Die „Barbie-Welt" entspricht nicht der Realität, weil sie ein stark vereinfachtes und idealisiertes Bild der Wirklichkeit darstellt.<br><strong>Unrealistische Körperbilder:</strong> Figuren wie Barbie haben Proportionen, die biologisch kaum möglich sind.<br><strong>Vereinfachte Lebensrealität:</strong> Probleme wie Arbeit, Geld, soziale Ungleichheit oder Konflikte werden oft ausgeblendet.<br><strong>Perfekte Lebensdarstellung:</strong> Alles wirkt makellos – Erfolg, Aussehen und Lebensumstände erscheinen ohne Mühe erreichbar.<br><strong>Begrenzte Vielfalt:</strong> Unterschiedliche Lebensweisen, Körperformen oder gesellschaftliche Hintergründe fehlen oft.';
+                    } else if (id.includes('geoTask') || id.includes('geo')) {
+                        pageKey = 'page-4';
+                        feedbackElementIds.push('geo-feedback');
+                        sampleSolutions['geo-feedback'] = '<strong>Musterlösung:</strong><br>Variante 1 hat Probleme: unklare Struktur, mangelnde Einheitlichkeit. Variante 2 ist besser: klare Tabellenstruktur, konsistente Formatierung. Für die Zukunft wichtig: Datentypen definieren, eindeutige Primärschlüssel verwenden, Redundanz vermeiden, auf Konsistenz achten.';
+                    }
+                }
+                
+                // Generate feedback based on text length
+                let feedback = '';
+                
+                if (totalLength > 500) {
+                    feedback = '⭐ Ausgezeichnet! Du hast eine umfassende Antwort geschrieben!';
+                } else if (totalLength > 200) {
+                    feedback = '✅ Sehr gut! Deine Antwort ist aussagekräftig.';
+                } else if (totalLength > 50) {
+                    feedback = '👍 Gute Antwort! Du kannst sie aber noch ausführlicher gestalten.';
+                } else {
+                    feedback = '📝 Antwort gespeichert. Versuche, sie etwas ausführlicher zu schreiben!';
+                }
+                
+                // Show feedback with sample solution for all feedback elements
+                for (let feedbackElementId of feedbackElementIds) {
+                    const feedbackEl = document.getElementById(feedbackElementId);
+                    if (feedbackEl && sampleSolutions[feedbackElementId]) {
+                        feedbackEl.innerHTML = feedback + '<br><br>' + sampleSolutions[feedbackElementId];
+                        feedbackEl.classList.add('feedback', 'show', 'correct');
+                        feedbackEl.style.display = 'block';
+                    }
+                }
+                
+                scores[pageKey] = (scores[pageKey] || 0) + 1;
+                updateProgress();
+            } else {
+                alert('❌ Bitte fülle alle Felder aus!');
+            }
+        }
+
+        // Image zoom functionality
+        function zoomImage(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.add('show');
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.remove('show');
+        }
+
+        // Progress tracking
+        function updateProgress() {
+            const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+            const maxScore = 45;
+            const percentage = (totalScore / maxScore) * 100;
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressPoints').textContent = totalScore;
+            document.getElementById('progressMax').textContent = maxScore;
+            
+            saveProgress();
+        }
+
+        function saveProgress() {
+            localStorage.setItem('courseProgress', JSON.stringify({
+                scores: scores,
+                answers: savedAnswers,
+                page: currentPage
+            }));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('courseProgress');
+            if (saved) {
+                const data = JSON.parse(saved);
+                scores = data.scores || scores;
+                savedAnswers = data.answers || {};
+                currentPage = data.page || 0;
+                updateProgress();
+            }
+        }
+
+        // Completion
+        function finishCourse() {
+            const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+            alert(`🎉 Herzlichen Glückwunsch!\n\nDu hast das Lernmodul abgeschlossen!\n\nDein Gesamtfortschritt: ${totalScore}/45 Punkte\n\nDu hast viel über Datenbanken und ER-Modelle gelernt!`);
+            localStorage.removeItem('courseProgress');
+        }
+
+        // Event listeners
+        function attachEventListeners() {
+            // Close modal on escape
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeImageModal();
+                }
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
+

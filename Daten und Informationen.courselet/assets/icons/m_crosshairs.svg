@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"	version="1.1" width="65" height="65">
+<path fill="#9d1000" fill-opacity="0.6" stroke="#d60e09" d="M20.5,32.5A12.5,12.5,0,0,1,32.5,20.5V.5A32.5,32.5,0,0,0,.5,32.5s0,0,0,0H20.5S20.5,32.5,20.5,32.5Z"/>
+<path fill="#ff4a32" fill-opacity="0.6" stroke="#d60e09" d="M32.5,20.5A12.5,12.5,0,0,1,44.5,32.5s0,0,0,0H64s0-0,0-0A32.5,32.5,0,0,0,32.5.64h-0V20.5Z"/>
+<path fill="#9d1000" fill-opacity="0.6" stroke="#d60e09" d="M44.5,32.5A12.5,12.5,0,0,1,32.5,44.5l0,0V64h0A32.5,32.5,0,0,0,64,32.5Z"/>
+<path fill="#ff4a32" fill-opacity="0.6" stroke="#d60e09" d="M20.5,32.5H0A32.5,32.5,0,0,0,32.5,64V44.5A12.5,12.5,0,0,1,20.5,32.5Z"/>
+<line x1="32.5" y1="0" x2="32.5" y2="27" stroke="#d60e09" stroke-width="1"/>
+<line x1="32.5" y1="38" x2="32.5" y2="64" stroke="#d60e09" stroke-width="1"/>
+<line x1="0" y1="32.5" x2="27" y2="32.5" stroke="#d60e09" stroke-width="1"/>
+<line x1="38" y1="32.5" x2="64" y2="32.5" stroke="#d60e09" stroke-width="1"/>
+</svg>

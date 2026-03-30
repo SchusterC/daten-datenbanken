@@ -1,0 +1,21 @@
+Lernmodul: Daten modellieren mit ER-Modellen
+
+1. Einstieg:
+Wähle ein Beispiel und beschreibe Daten und Beteiligte.
+
+2. Entdecken:
+Welche Dinge, Eigenschaften und Beziehungen gibt es?
+
+3. Strukturieren:
+Entität = Dinge
+Attribut = Eigenschaften
+Beziehung = Verbindungen
+
+4. Anwenden:
+Erstelle ein eigenes ER-Modell.
+
+5. Austausch:
+Vergleiche dein Modell mit einem Partner.
+
+6. Reflexion:
+Warum sind Modelle Vereinfachungen?

@@ -755,6 +755,23 @@
                     <a class="nav-link" data-page="page-5" onclick="navigateToPage(5)">
                         🎯 ER-Modelle
                     </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link" data-page="page-5b" onclick="navigateToPage(5.5)">
+                                ✏️ ER-Diagramm zeichnen
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-page="page-5c" onclick="navigateToPage(5.7)">
+                                💪 Fitnessstudio Aufgabe
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-page="page-5d" onclick="navigateToPage(5.9)">
+                                📋 Übungsaufgaben
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </aside>
@@ -1158,6 +1175,446 @@
 
                         <div class="nav-buttons">
                             <button class="btn btn-primary" onclick="navigateToPage(4)">← Zurück</button>
+                            <button class="btn btn-primary" onclick="navigateToPage(5.5)">Weiter →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 5b: ER-Diagramm zeichnen -->
+                <div id="page-5b" class="page">
+                    <div class="page-content">
+                        <h1>ER-Diagramm praktisch: Schuldatenbank</h1>
+
+                        <h2>Konkrete Anwendung: Verwaltungssystem einer Schule</h2>
+
+                        <p>In diesem Kapitel lernen wir, wie man ein ER-Modell von Grund auf erstellt. Als praktisches Beispiel nutzen wir eine <strong>Schuldatenbank für die Kursverwaltung</strong>. Das System soll folgende Anforderungen erfüllen:</p>
+
+                        <div class="definition">
+                            <strong>Anforderungsanalyse:</strong>
+                            <div class="definition-text">
+                                <ul style="margin-top: 10px;">
+                                    <li>Die Schule möchte Informationen über <strong>Schüler</strong> speichern (Name, Vorname, Matrikelnummer, E-Mail)</li>
+                                    <li>Es gibt <strong>Kurse</strong>, die unterrichtet werden (Kursname, Kursid, Klassenstufe, Raum)</li>
+                                    <li>Jeder Schüler kann in mehreren Kursen angemeldet sein</li>
+                                    <li>Jeder Kurs hat einen <strong>Lehrer</strong> (Name, Vorname, Lehrerkürzel, Fachbereich)</li>
+                                    <li>Ein Lehrer unterrichtet mehrere Kurse</li>
+                                    <li>Die Schule möchte auch Informationen über <strong>Noten</strong> speichern (Schüler, Kurs, Note, Datum)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h2>Schritt 1: Entitäten identifizieren</h2>
+
+                        <p>Zuerst sortieren wir die Daten in <strong>Entitäten</strong> ein. Eine Entität ist eine Klasse von Objekten, über die wir Informationen speichern möchten.</p>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">✏️ Aufgabe 1: Entitäten benennen</div>
+                            <p style="color: var(--text-light); margin-bottom: 15px;">Aus der Anforderungsanalyse ergeben sich folgende Entitäten:</p>
+                            <div style="margin: 15px 0; padding: 12px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                <p style="color: var(--text-dark); margin: 0;"><strong>🎯 Lösung:</strong> SCHÜLER, KURS, LEHRER, NOTEN</p>
+                            </div>
+                            <p style="color: var(--text-light); margin-top: 15px; font-size: 13px;">⚠️ <em>Hinweis:</em> Entitäten werden als <strong>Rechtecke</strong> in der ER-Notation dargestellt und in Großbuchstaben geschrieben.</p>
+                        </div>
+
+                        <h2>Schritt 2: Attribute hinzufügen</h2>
+
+                        <p>Für jede Entität definieren wir die <strong>Attribute</strong> – das sind die Eigenschaften oder Merkmale, die wir speichern möchten:</p>
+
+                        <table style="width: 100%; margin: 20px 0; border-collapse: collapse; background: var(--light-bg); border: 1px solid var(--border-color);">
+                            <tr style="background: var(--primary-color); color: white;">
+                                <th style="padding: 12px; text-align: left; border: 1px solid var(--border-color); font-weight: bold;">Entität</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid var(--border-color); font-weight: bold;">Attribute</th>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <td style="padding: 12px; border-right: 1px solid var(--border-color); font-weight: 600;">SCHÜLER</td>
+                                <td style="padding: 12px;"><u>Matrikelnummer</u>, Name, Vorname, E-Mail</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <td style="padding: 12px; border-right: 1px solid var(--border-color); font-weight: 600;">KURS</td>
+                                <td style="padding: 12px;"><u>Kursid</u>, Kursname, Klassenstufe, Raum</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <td style="padding: 12px; border-right: 1px solid var(--border-color); font-weight: 600;">LEHRER</td>
+                                <td style="padding: 12px;"><u>Lehrerkürzel</u>, Name, Vorname, Fachbereich</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-right: 1px solid var(--border-color); font-weight: 600;">NOTEN</td>
+                                <td style="padding: 12px;"><u>NotenID</u>, Note, Datum</td>
+                            </tr>
+                        </table>
+
+                        <div style="margin: 20px 0; padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 8px; border-left: 3px solid var(--secondary-color);">
+                            <p style="color: var(--text-dark); margin: 0;"><strong>📖 Grafische Darstellung:</strong></p>
+                            <ul style="margin: 10px 0; padding-left: 20px; color: var(--text-light);">
+                                <li><strong>Unterstrichene Attribute</strong> sind Schlüsselattribute (identifizieren jede Entität eindeutig)</li>
+                                <li>Attribute werden als <strong>Ovals</strong> um die Entität herum dargestellt</li>
+                                <li>Das Schlüsselattribut wird <strong>unterstrichen</strong> gezeichnet</li>
+                            </ul>
+                        </div>
+
+                        <h2>Schritt 3: Beziehungen erkennen und modellieren</h2>
+
+                        <p>Jetzt überlegen wir, wie die Entitäten miteinander verbunden sind:</p>
+
+                        <div class="definition">
+                            <strong>Beziehungen zwischen Entitäten:</strong>
+                            <div class="definition-text">
+                                <ul style="margin-top: 10px;">
+                                    <li><strong>SCHÜLER ↔ KURS:</strong> Ein Schüler kann in vielen Kursen angemeldet sein, ein Kurs hat viele Schüler → <strong>M:N Beziehung</strong></li>
+                                    <li><strong>LEHRER ↔ KURS:</strong> Ein Lehrer unterrichtet einen oder mehrere Kurse, ein Kurs hat einen Lehrer → <strong>1:N Beziehung</strong></li>
+                                    <li><strong>SCHÜLER ↔ NOTEN:</strong> Ein Schüler kann mehrere Noten haben → <strong>1:N Beziehung</strong></li>
+                                    <li><strong>KURS ↔ NOTEN:</strong> Ein Kurs hat mehrere Noten → <strong>1:N Beziehung</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h2>Schritt 4: Das vollständige ER-Diagramm</h2>
+
+                        <p>Hier ist die vollständige ER-Darstellung der Schuldatenbank:</p>
+
+
+
+                        <h2>Übung: ER-Modell analysieren und erweitern</h2>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">🎯 Aufgabe 2: Erweiterung des Modells</div>
+                            <p style="margin-bottom: 15px; color: var(--text-light);">Das Schuldatenbank-ER-Modell soll erweitert werden. Die Schule möchte auch folgende Informationen speichern:</p>
+                            
+                            <div style="padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 6px; margin-bottom: 15px; border-left: 3px solid var(--primary-color);">
+                                <p style="color: var(--text-dark); margin: 0;"><strong>Neue Anforderung:</strong> Die Schule verwaltet auch <strong>RÄUME</strong> (Raumnummer, Kapazität, Ausstattung). Jeder Kurs findet in einem Raum statt.</p>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>a) Neue Entität:</strong> Warum ist RAUM eine neue Entität und nicht nur ein Attribut von KURS?</div>
+                                <textarea class="text-input" rows="4" id="answer-entity" placeholder="Begründe deine Antwort..."></textarea>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>b) Beziehungsart:</strong> Welche Art von Beziehung besteht zwischen KURS und RAUM? (1:1, 1:N oder M:N) Begründe!</div>
+                                <textarea class="text-input" rows="4" id="answer-cardinalität" placeholder="Erkläre die Beziehungsart..."></textarea>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>c) Attribute:</strong> Welche Attribute sollte die Entität RAUM mindestens haben?</div>
+                                <textarea class="text-input" rows="4" id="answer-attribute" placeholder="Zähle die Attribute auf..."></textarea>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="checkRoomTask()">Antworten überprüfen</button>
+                            <div class="feedback" id="ermodel-feedback"></div>
+                            
+                            <div id="room-solutions" style="display: none; margin-top: 20px;">
+                                <h3 style="color: var(--secondary-color); margin-bottom: 15px;">🎯 Musterlösungen:</h3>
+                                
+                                <div style="margin-bottom: 20px; padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                    <p style="color: var(--text-dark); margin-bottom: 10px;"><strong>a) Warum ist RAUM eine separate Entität?</strong></p>
+                                    <p style="color: var(--text-light); margin: 0;">RAUM ist eine separate Entität und nicht nur ein Attribut von KURS, weil ein Raum eigene Eigenschaften hat (Raumnummer, Kapazität, Ausstattung), die unabhängig von Kursen existieren und verwaltbar sein sollen. Mehrere Kurse können zu verschiedenen Zeiten im gleichen Raum stattfinden. Wenn RAUM nur ein Attribut wäre, könnte man diese Informationen nicht effizient verwalten.</p>
+                                </div>
+                                
+                                <div style="margin-bottom: 20px; padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                    <p style="color: var(--text-dark); margin-bottom: 10px;"><strong>b) Beziehungsart zwischen KURS und RAUM:</strong></p>
+                                    <p style="color: var(--text-light); margin: 0;">Die Beziehung ist <strong>1:N</strong> (Ein-zu-Viele). Ein Raum kann für mehrere Kurse genutzt werden (evtl. unterschiedliche Tageszeiten), aber jeder Kurs findet in genau einem Raum statt. Dies ist eine 1:N Beziehung von RAUM zu KURS.</p>
+                                </div>
+                                
+                                <div style="margin-bottom: 20px; padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                    <p style="color: var(--text-dark); margin-bottom: 10px;"><strong>c) Attribute der Entität RAUM:</strong></p>
+                                    <p style="color: var(--text-light); margin: 0;">Die Entität RAUM sollte mindestens folgende Attribute haben:</p>
+                                    <ul style="color: var(--text-light); margin: 10px 0; padding-left: 20px;">
+                                        <li><u>Raumnummer</u> (Primärschlüssel) - eindeutige Identifizierung des Raums</li>
+                                        <li>Gebäude - in welchem Gebäude sich der Raum befindet</li>
+                                        <li>Kapazität - wie viele Personen passen rein</li>
+                                        <li>Ausstattung - z.B. Beamer, Tafel, Computer, etc.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>Häufige Fehler beim ER-Modellieren</h2>
+
+                        <div class="definition" style="background: rgba(160, 32, 32, 0.1); border: 1px solid var(--primary-color);">
+                            <strong style="color: var(--primary-color);">❌ Fehler 1: Zu viele Details</strong>
+                            <div class="definition-text" style="margin-top: 8px;">
+                                <strong>Problem:</strong> Man versucht, alle möglichen Informationen in das Modell aufzunehmen.<br>
+                                <strong>Lösung:</strong> Konzentriere dich auf die Kerninformationen, die für das System wichtig sind.
+                            </div>
+                        </div>
+
+                        <div class="definition" style="background: rgba(160, 32, 32, 0.1); border: 1px solid var(--primary-color); margin-top: 15px;">
+                            <strong style="color: var(--primary-color);">❌ Fehler 2: Falsche Kardinalität</strong>
+                            <div class="definition-text" style="margin-top: 8px;">
+                                <strong>Problem:</strong> Man bestimmt die Beziehungsart falsch (z.B. 1:N statt M:N).<br>
+                                <strong>Lösung:</strong> Stelle dir konkrete Beispiele vor: „Kann eine Entität A viele Entitäten B haben? Kann eine Entität B zu vielen Entitäten A gehören?"
+                            </div>
+                        </div>
+
+                        <div class="definition" style="background: rgba(160, 32, 32, 0.1); border: 1px solid var(--primary-color); margin-top: 15px;">
+                            <strong style="color: var(--primary-color);">❌ Fehler 3: Fehlende oder falsche Schlüssel</strong>
+                            <div class="definition-text" style="margin-top: 8px;">
+                                <strong>Problem:</strong> Man vergisst Primärschlüssel oder setzt sie falsch.<br>
+                                <strong>Lösung:</strong> Jede Entität braucht einen Primärschlüssel zur eindeutigen Identifizierung. M:N Beziehungen brauchen Fremdschlüssel nach beiden Seiten.
+                            </div>
+                        </div>
+
+                        <h2>Schritt-für-Schritt Leitfaden zum ER-Modellieren</h2>
+
+                        <div style="background: var(--light-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin: 20px 0;">
+                            <ol style="margin: 0; padding-left: 20px; line-height: 2;">
+                                <li><strong>Anforderungsanalyse:</strong> Was soll die Datenbank speichern?</li>
+                                <li><strong>Entitäten bestimmen:</strong> Welche Objektklassen gibt es?</li>
+                                <li><strong>Attribute definieren:</strong> Welche Daten gehören zu jeder Entität?</li>
+                                <li><strong>Primärschlüssel festlegen:</strong> Wie identifiziert man jede Entität eindeutig?</li>
+                                <li><strong>Beziehungen erkennen:</strong> Wie hängen die Entitäten zusammen?</li>
+                                <li><strong>Kardinalität bestimmen:</strong> 1:1, 1:N oder M:N?</li>
+                                <li><strong>Überprüfen:</strong> Entspricht das Modell den Anforderungen?</li>
+                            </ol>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(5)">← Zurück</button>
+                            <button class="btn btn-success" onclick="finishCourse()">✅ Kurs abschließen</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 5c: Fitnessstudio Aufgabe -->
+                <div id="page-5c" class="page">
+                    <div class="page-content">
+                        <h1>Modellaufgabe: Fitnessstudio-Verwaltung</h1>
+
+                        <p>Ein Fitnessstudio möchte seine Mitglieder und die angebotenen Sportkurse digital organisieren. Wir müssen ein ER-Modell entwerfen, das die Struktur dieser Datenbank darstellt.</p>
+
+                        <div class="definition">
+                            <strong>Anforderungen der Fitnessstudio-Verwaltung:</strong>
+                            <div class="definition-text">
+                                <ul style="margin-top: 10px;">
+                                    <li><strong>Mitglieder:</strong> Jedes Mitglied wird durch eine eindeutige Mitgliedsnummer identifiziert. Zudem werden der Name und das Geburtsdatum gespeichert.</li>
+                                    <li><strong>Kurse:</strong> Es gibt verschiedene Kurse (z. B. „Yoga" oder „Pump"). Jeder Kurs hat eine eindeutige Kurs-ID, eine Bezeichnung und eine maximale Teilnehmerzahl.</li>
+                                    <li><strong>Beziehung:</strong> Ein Mitglied kann sich für mehrere Kurse anmelden. In einem Kurs können wiederum viele Mitglieder angemeldet sein.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">✏️ Schritt 1: Entitäten erkennen</div>
+                            <p style="color: var(--text-light); margin-bottom: 15px;">Welche Entitätstypen benötigt das Fitnessstudio-System? Nenne alle Entitäten:</p>
+                            <textarea class="text-input" rows="4" id="task-entities" placeholder="Zähle die Entitäten auf (z.B. MITGLIED, KURS, ...)"></textarea>
+                            <button class="btn btn-success btn-submit" onclick="checkFitnessTask('entities')">Antwort überprüfen</button>
+                            <div class="feedback" id="feedback-entities"></div>
+                        </div>
+
+                         <div class="exercise-box">
+                            <div class="exercise-title">✏️ Schritt 2: Attribute definieren</div>
+                            <p style="color: var(--text-light); margin-bottom: 15px;">Definiere die Attribute für beide Entitäten. Markiere die Primärschlüssel (unterstrichen):</p>
+                            
+                            <div class="question">
+                                <div class="question-text"><strong>a) MITGLIED:</strong> Welche Attribute sollte die Entität MITGLIED haben?</div>
+                                <textarea class="text-input" rows="3" id="attr-mitglied" placeholder="z.B.: Mitgliedsnummer (🔑), Name, Geburtsdatum"></textarea>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>b) KURS:</strong> Welche Attribute sollte die Entität KURS haben?</div>
+                                <textarea class="text-input" rows="3" id="attr-kurs" placeholder="z.B.: Kurs-ID (🔑), Bezeichnung, Maximal-Teilnehmer"></textarea>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="checkFitnessTask('attributes')">Antworten überprüfen</button>
+                            <div class="feedback" id="feedback-attributes"></div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">🎯 Schritt 3: Beziehung analysieren</div>
+                            <p style="color: var(--text-light); margin-bottom: 15px;">Analysiere die Beziehung zwischen MITGLIED und KURS:</p>
+                            
+                            <div class="question">
+                                <div class="question-text"><strong>a) Beziehungsname:</strong> Wie könnte die Beziehung zwischen MITGLIED und KURS heißen?</div>
+                                <textarea class="text-input" rows="2" id="relation-name" placeholder="z.B.: Anmeldung, nimmt teil an, besucht..."></textarea>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>b) Kardinalität:</strong> Welche Kardinalität ist korrekt und warum?</div>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cardinality" value="1:1"> 1:1 (Ein Mitglied in einem Kurs, ein Kurs hat ein Mitglied)
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cardinality" value="1:n"> 1:N (Ein Kurs hat viele Mitglieder, ein Mitglied in einem Kurs)
+                                </label>
+                                <label class="quiz-option">
+                                    <input type="radio" name="cardinality" value="m:n"> M:N (Ein Mitglied kann in vielen Kursen sein, ein Kurs hat viele Mitglieder)
+                                </label>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>c) Begründung:</strong> Erkläre deine Antwort mit einem konkreten Beispiel:</div>
+                                <textarea class="text-input" rows="4" id="cardinality-reason" placeholder="Begründe, warum diese Kardinalität richtig ist..."></textarea>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="checkFitnessTask('relationship')">Antworten überprüfen</button>
+                            <div class="feedback" id="feedback-relationship"></div>
+                            
+                            <div class="feedback" id="solution-relationship" style="display: none; margin-top: 15px; padding: 12px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                <p style="color: var(--text-dark); margin-top: 0;"><strong>🎯 Musterlösung:</strong></p>
+                                <ul style="margin: 8px 0; padding-left: 20px; color: var(--text-dark);">
+                                    <li><strong>Beziehungsname:</strong> ANMELDUNG (oder: nimmt_teil_an, besucht)</li>
+                                    <li><strong>Kardinalität:</strong> M:N (Viele-zu-Viele)</li>
+                                    <li><strong>Begründung:</strong> Ein Mitglied kann sich für mehrere Kurse anmelden (z.B. Anna meldet sich für Yoga UND Pump an). Ein Kurs hat viele Mitglieder (z.B. Der Yoga-Kurs hat 30 Mitglieder).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">✏️ Schritt 4: ER-Diagramm zeichnen</div>
+                            <p style="color: var(--text-light); margin-bottom: 15px;"><strong>Zeichne</strong> eine grafische Darstellung des ER-Modells für das Fitnessstudio basierend auf deinen Antworten. Du kannst folgende Optionen nutzen:</p>
+                            
+                            <div style="padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border-left: 3px solid var(--primary-color); margin-bottom: 15px;">
+                                <p style="color: var(--text-dark); margin: 5px 0;"><strong>📌 Zeichnungsmöglichkeiten:</strong></p>
+                                <ul style="margin: 8px 0; padding-left: 20px; color: var(--text-light);">
+                                    <li><strong>Option 1:</strong> Auf Papier zeichnen</li>
+                                    <li><strong>Option 2:</strong> Mit der kostenlosen Software <strong>Dia</strong> zeichnen</li>
+                                </ul>
+                            </div>
+
+                            <div style="padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 8px; border-left: 3px solid var(--secondary-color); margin-bottom: 15px;">
+                                <p style="color: var(--text-dark); margin: 5px 0;"><strong>💡 Anleitung zu Dia:</strong></p>
+                                <p style="color: var(--text-light); font-size: 13px; margin: 5px 0;">Schau dir dieses Video an, um zu lernen, wie du mit Dia ER-Diagramme zeichnest:</p>
+                                <a href="https://www.youtube.com/watch?v=LvMoJfjV6oE" target="_blank" style="display: inline-block; margin-top: 10px;" class="btn btn-primary">
+                                    ▶️ Dia Anleitung: ER-Diagramme zeichnen
+                                </a>
+                            </div>
+
+
+                        </div>
+
+                        <h2>Musterlösung: ER-Diagramm Fitnessstudio</h2>
+
+                        <div style="margin: 20px 0; text-align: center;">
+                            <button class="btn btn-primary" onclick="toggleFitnessSolution()">Lösung anzeigen</button>
+                        </div>
+
+                        <div id="fitness-solution" style="display: none; margin: 20px 0;">
+                            <div class="image-container">
+                                <img src="images/resources/unnamed(4).png" alt="Musterlösung: ER-Modell Fitnessstudio" onclick="zoomImage(this)" style="width: 100%; max-width: 700px;">
+                            </div>
+                        </div>
+
+                        <h2>Reflexionsfragen</h2>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">💭 Reflexion: Vertiefung</div>
+                            
+                            <div class="question">
+                                <div class="question-text"><strong>Frage 1:</strong> Warum ist die M:N Beziehung wichtig? Was wäre ein Problem, wenn wir nur 1:N hätten?</div>
+                                <textarea class="text-input" rows="4" id="reflect-1" placeholder="Erkläre die Vorteile der M:N Beziehung..."></textarea>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>Frage 2:</strong> Könnte man "Anmeldedatum" als direktes Attribut von MITGLIED speichern? Warum ist es besser, es in der Beziehungsentität zu speichern?</div>
+                                <textarea class="text-input" rows="4" id="reflect-2" placeholder="Überlege, was ein Problem sein könnte..."></textarea>
+                            </div>
+
+                            <div class="question">
+                                <div class="question-text"><strong>Frage 3:</strong> Welche weiteren Anforderungen könnten das Fitnessstudio-ER-Modell noch komplexer machen? (Optional: Trainer, Geräte, Zeitpläne, Abos...)</div>
+                                <textarea class="text-input" rows="4" id="reflect-3" placeholder="Denke an weitere Aspekte eines Fitnessstudios..."></textarea>
+                            </div>
+
+                            <button class="btn btn-success btn-submit" onclick="checkReflections()">Reflexionen überprüfen</button>
+                            <div class="feedback" id="feedback-reflect"></div>
+                            
+                            <div id="reflection-solutions" style="display: none; margin-top: 20px;">
+                                <h3 style="color: var(--secondary-color); margin-bottom: 15px;">🎯 Musterlösungen:</h3>
+                                
+                                <div style="margin-bottom: 20px; padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                    <p style="color: var(--text-dark); margin-bottom: 10px;"><strong>Frage 1: Warum ist die M:N Beziehung wichtig?</strong></p>
+                                    <p style="color: var(--text-light); margin: 0;">Die M:N Beziehung ist wichtig, weil sie die reale Situation korrekt abbildet: Ein Mitglied kann in mehreren Kursen angemeldet sein, und ein Kurs kann mehrere Mitglieder haben. Mit nur 1:N würde man Probleme bekommen: Entweder könnte ein Kurs nur ein Mitglied haben (unrealistisch), oder man müsste Mitgliedsdaten vervielfachen (redundante Daten, Konsistenzprobleme).</p>
+                                </div>
+                                
+                                <div style="margin-bottom: 20px; padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                    <p style="color: var(--text-dark); margin-bottom: 10px;"><strong>Frage 2: Anmeldedatum in ANMELDUNG vs. MITGLIED:</strong></p>
+                                    <p style="color: var(--text-light); margin: 0;">Es ist besser, "Anmeldedatum" in der Beziehungsentität ANMELDUNG zu speichern, weil das Datum zu DIESER SPEZIFISCHEN ANMELDUNG gehört (wann sich ein bestimmtes Mitglied für einen bestimmten Kurs angemeldet hat). Würde man es in MITGLIED speichern, könnte man nur ein Datum pro Mitglied speichern – aber ein Mitglied meldet sich zu verschiedenen Zeiten für verschiedene Kurse an. Daher gehört das Datum zur Beziehung, nicht zur Entity.</p>
+                                </div>
+                                
+                                <div style="margin-bottom: 20px; padding: 15px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);">
+                                    <p style="color: var(--text-dark); margin-bottom: 10px;"><strong>Frage 3: Mögliche Erweiterungen des Modells:</strong></p>
+                                    <p style="color: var(--text-light); margin: 0;">Das Modell könnte erweitert werden um: <strong>TRAINER</strong> (mit Kredentialen, Spezialisierung) und Beziehung zu KURS; <strong>GERÄTE</strong> (mit Typ, Seriennummer) und Beziehung zu Räumen; <strong>ZEITPLAN</strong> (mit Tag, Uhrzeit) und Beziehung zu KURS; <strong>ABOS/MITGLIEDSCHAFTSTYPEN</strong> (mit Preis, Dauer, Features) und Beziehung zu MITGLIED; <strong>RAUM/STUDIO-STANDORTE</strong> und Beziehung zu KURS; <strong>ZAHLUNGEN</strong> und Beziehung zu MITGLIED für Rechnungswesen.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>Zusammenfassung</h2>
+
+                        <div style="background: rgba(12, 192, 223, 0.1); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin: 20px 0;">
+                            <p style="color: var(--text-dark); margin-bottom: 15px;"><strong>✅ Was du gelernt hast:</strong></p>
+                            <ul style="color: var(--text-light); padding-left: 20px; line-height: 1.8;">
+                                <li>Entitätstypen aus Anforderungen identifizieren</li>
+                                <li>Attribute und Primärschlüssel definieren</li>
+                                <li>Beziehungen zwischen Entitäten erkennen</li>
+                                <li>Kardinalitäten (1:1, 1:N, M:N) richtig bestimmen</li>
+                                <li>Ein komplettes ER-Modell grafisch darstellen</li>
+                                <li>Praktische Probleme mit Datenmodellierung lösen</li>
+                            </ul>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(5.5)">← Zurück</button>
+                            <button class="btn btn-success" onclick="finishCourse()">✅ Kurs abschließen</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 5d: Übungsaufgaben -->
+                <div id="page-5d" class="page">
+                    <div class="page-content">
+                        <h1>ER-Modelle: Übungsaufgaben</h1>
+
+                        <p style="color: var(--text-light); margin-bottom: 20px;">Wende dein Wissen über ER-Modelle auf die folgenden realistischen Szenarien an. Erstelle für jede Aufgabe ein vollständiges ER-Diagramm und lade deine Lösung in LernSax hochgeladen.</p>
+
+                        <h2>Aufgabe 1: Schulbibliothek-System</h2>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">📚 Aufgabe 1: Schulbibliothek</div>
+                            
+                            <div style="padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border-left: 3px solid var(--primary-color); margin-bottom: 15px;">
+                                <p style="color: var(--text-light); margin: 0;">Eine Schulbibliothek verwaltet ein Ausleihen-System. Die Bibliothek hat verschiedene Bücher im Bestand – jedes Buch hat einen Titel, eine ISBN, einen Autor und einen Verlag. Ein Buch kann mehrfach vorhanden sein (mit verschiedenen Exemplarnummern). Schülerinnen und Schüler können sich Bücher ausleihen und müssen diese nach einer bestimmten Leihfrist zurückgeben. Jeder Schüler/jede Schülerin hat eine Schüler-ID, einen Namen und eine Klasse. Ein Schüler/eine Schülerin kann mehrere Bücher ausleihen. Das System muss speichern, wann ein Buch ausgeliehen wurde und wann es zurück sein muss. Die Bibliothekarin muss auch sehen können, welche Bücher aktuell ausgeliehen sind.</p>
+                            </div>
+                        </div>
+
+                        <h2>Aufgabe 2: Kino-Ticketing-System</h2>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">🎬 Aufgabe 2: Kino-Verwaltung</div>
+                            
+                            <div style="padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border-left: 3px solid var(--primary-color); margin-bottom: 15px;">
+                                <p style="color: var(--text-light); margin: 0;">Ein Kino verwaltet seine Vorstellungen und Ticketverkäufe. Das Kino hat mehrere Säle mit verschiedenen Nummern und Sitzplatzkapazitäten. Zu jedem Film sind folgende Informationen wichtig: Titel, Dauer, FSK-Altersfreigabe und Regisseur. Eine Vorstellung ist ein Film zu einer bestimmten Zeit in einem bestimmten Saal. Für jede Vorstellung wird die Anzahl der verfügbaren Plätze benötigt. Kunden können mehrere Tickets kaufen, jedes Ticket ist für einen bestimmten Sitzplatz. Das System muss Informationen über Kunde (Name, Telefon), gekauftes Ticket (Sitzplatz, Preis) speichern.</p>
+                            </div>
+                        </div>
+
+                        <h2>Aufgabe 3: Online-Shop mit Bestellmanagement</h2>
+
+                        <div class="exercise-box">
+                            <div class="exercise-title">🛒 Aufgabe 3: Online-Shop-System</div>
+                            
+                            <div style="padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border-left: 3px solid var(--primary-color); margin-bottom: 15px;">
+                                <p style="color: var(--text-light); margin: 0;">Ein Online-Shop muss die Verwaltung seiner Produkte, Kunden, Bestellungen und Lieferungen organisieren. Jeder Kunde hat Kontaktdaten: Kundennummer, Name, E-Mail, Adresse und Telefon. Produkte haben: Produktnummer, Name, Beschreibung, Preis und verfügbare Menge. Produkte können in verschiedenen Kategorien angeordnet werden (z.B. Elektronik, Kleidung, Bücher). Eine Bestellung wird von einem Kunden zu einem Zeitpunkt aufgegeben und enthält mehrere Produkte. Für jedes Produkt in einer Bestellung muss die bestellte Menge und der Preis zum Bestellzeitpunkt gespeichert werden. Jede Bestellung kann mehrere Lieferungen haben (z.B. weil manche Artikel später verfügbar sind). Eine Lieferung enthält die Versandadresse, Versanddatum und erhaltenes Datum. Das System muss Tracking ermöglichen: Welche Produkte wurden mit welcher Lieferung versendet.</p>
+                            </div>
+                        </div>
+
+                        <h2>Abgabehinweis</h2>
+
+                        <div style="padding: 20px; background: rgba(12, 192, 223, 0.1); border-radius: 8px; border: 1px solid var(--border-color); margin: 20px 0;">
+                            <p style="color: var(--text-dark); margin-bottom: 12px;"><strong>📤 Deine Lösung hochladen:</strong></p>
+                            <p style="color: var(--text-light); margin-bottom: 12px;">Erstelle für jede Aufgabe ein ER-Diagramm. Du kannst folgende Tools verwenden:</p>
+                            <ul style="color: var(--text-light); padding-left: 20px; margin-bottom: 15px;">
+                                <li><strong>Dia</strong> (kostenloses ER-Diagramm-Tool)</li>
+                                <li><strong>draw.io</strong> (online Diagramm-Tool)</li>
+                                <li><strong>Papier</strong> (abfotografieren oder einscannen)</li>
+                            </ul>
+                            <p style="color: var(--text-light); margin-bottom: 12px;">Exportiere deine Diagramme als <strong>PDF</strong> oder <strong>PNG</strong> und lade sie in <strong>LernSax</strong> hoch. Nutze folgende Namenskonvention:</p>
+                            <ul style="color: var(--text-light); padding-left: 20px; margin-bottom: 15px;">
+                                <li>Aufgabe 1: <code>01_Schulbibliothek_[DeinName].pdf</code></li>
+                                <li>Aufgabe 2: <code>02_Kino_[DeinName].pdf</code></li>
+                                <li>Aufgabe 3: <code>03_OnlineShop_[DeinName].pdf</code></li>
+                            </ul>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage(5.7)">← Zurück zur Fitnessstudio-Aufgabe</button>
                             <button class="btn btn-success" onclick="finishCourse()">✅ Kurs abschließen</button>
                         </div>
                     </div>
@@ -1182,7 +1639,10 @@
             'page-3': 0,
             'page-3b': 0,
             'page-4': 0,
-            'page-5': 0
+            'page-5': 0,
+            'page-5b': 0,
+            'page-5c': 0,
+            'page-5d': 0
         };
         let savedAnswers = {};
 
@@ -1205,7 +1665,10 @@
                 3: 'page-3',
                 3.5: 'page-3b',
                 4: 'page-4',
-                5: 'page-5'
+                5: 'page-5',
+                5.5: 'page-5b',
+                5.7: 'page-5c',
+                5.9: 'page-5d'
             };
             
             const pageId = pageMap[pageIndex];
@@ -1226,7 +1689,9 @@
                     3: 'Datenbanksystem',
                     3.5: 'Komponenten eines Datenbanksystems',
                     4: 'Relationale Datenbank',
-                    5: 'Entity-Relationship-Modelle'
+                    5: 'Entity-Relationship-Modelle',
+                    5.5: 'ER-Diagramm praktisch: Schuldatenbank',
+                    5.7: 'Modellaufgabe: Fitnessstudio-Verwaltung'
                 };
                 document.getElementById('pageTitle').textContent = titles[pageIndex];
                 
@@ -1317,6 +1782,170 @@
                 
                 // Re-append shuffled items
                 items.forEach(item => rightColumn.appendChild(item));
+            }
+        }
+
+        // Helper: Check word similarity
+        function containsKeywords(text, keywords) {
+            const lowerText = text.toLowerCase();
+            return keywords.some(keyword => lowerText.includes(keyword));
+        }
+
+        // Fitness Studio Task Check Function
+        function checkFitnessTask(taskType) {
+            const feedback = {
+                'entities': document.getElementById('feedback-entities'),
+                'attributes': document.getElementById('feedback-attributes'),
+                'relationship': document.getElementById('feedback-relationship'),
+                'diagram': document.getElementById('feedback-diagram')
+            };
+
+            if (taskType === 'entities') {
+                const answer = document.getElementById('task-entities').value.trim().toLowerCase();
+                const fb = feedback.entities;
+                
+                if (answer.includes('mitglied') && answer.includes('kurs')) {
+                    fb.innerHTML = '✅ <strong>Richtig!</strong> Du hast die beiden Entitäten MITGLIED und KURS korrekt identifiziert.';
+                    fb.classList.add('show', 'correct');
+                    scores['page-5c'] = Math.max(scores['page-5c'], 3);
+                } else {
+                    fb.innerHTML = '❌ <strong>Nicht ganz.</strong> Überprüfe deine Antwort. Das System braucht MITGLIED und KURS.';
+                    fb.classList.add('show');
+                    fb.classList.remove('correct');
+                }
+                updateProgress();
+            } 
+            
+            else if (taskType === 'attributes') {
+                const mitglied = document.getElementById('attr-mitglied').value.trim();
+                const kurs = document.getElementById('attr-kurs').value.trim();
+                const fb = feedback.attributes;
+                
+                // Check for relevant keywords
+                const mitgliedKeywords = ['mitgliedsnummer', 'nummer', 'id', 'name', 'adresse', 'telefon', 'geburtsdatum', 'gehalt', 'anschrift'];
+                const kursKeywords = ['kurs', 'id', 'bezeichnung', 'name', 'trainee', 'trainer', 'zeit', 'platz', 'teilnehmer', 'uhrzeit', 'tag'];
+                
+                const hasMitgliedAttrs = containsKeywords(mitglied, mitgliedKeywords);
+                const hasKursAttrs = containsKeywords(kurs, kursKeywords);
+                
+                if (hasMitgliedAttrs && hasKursAttrs) {
+                    fb.innerHTML = '✅ <strong>Gut!</strong> Du hast relevante Attribute für beide Entitäten identifiziert.';
+                    fb.classList.add('show', 'correct');
+                    
+                    // Show solution
+                    const solution = document.createElement('div');
+                    solution.style.cssText = 'margin-top: 15px; padding: 12px; background: rgba(12, 192, 223, 0.1); border-radius: 6px; border-left: 3px solid var(--secondary-color);';
+                    solution.innerHTML = '<p style="color: var(--text-dark); margin-top: 0;"><strong>🎯 Musterlösung:</strong></p><ul style="margin: 8px 0; padding-left: 20px; color: var(--text-dark);"><li><strong>MITGLIED:</strong> <u>Mitgliedsnummer</u>, Name, Geburtsdatum, E-Mail</li><li><strong>KURS:</strong> <u>Kurs-ID</u>, Bezeichnung, Max-Teilnehmerzahl, Trainername</li></ul>';
+                    if (!document.getElementById('solution-attributes')) {
+                        solution.id = 'solution-attributes';
+                        fb.parentElement.appendChild(solution);
+                    }
+                    
+                    scores['page-5c'] = Math.max(scores['page-5c'], 3);
+                } else {
+                    fb.innerHTML = '❌ <strong>Überprüfe deine Antwort.</strong> Denke an wichtige Informationen wie: MITGLIED könnte Mitgliedsnummer, Name, Geburtsdatum haben. KURS könnte Kurs-ID, Bezeichnung, Max-Teilnehmerzahl haben.';
+                    fb.classList.add('show');
+                    fb.classList.remove('correct');
+                }
+                updateProgress();
+            } 
+            
+            else if (taskType === 'relationship') {
+                const cardinality = document.querySelector('input[name="cardinality"]:checked');
+                const reason = document.getElementById('cardinality-reason').value.trim();
+                const fb = feedback.relationship;
+                
+                // Keywords for M:N reasoning
+                const mnKeywords = ['mehrere', 'viele', 'mehreren', 'verschiedenen', 'mehrere kurs', 'verschiedene', 'mehrere mitglieder', 'm:n'];
+                const hasGoodReason = containsKeywords(reason, mnKeywords) && reason.length > 15;
+                
+                if (cardinality && cardinality.value === 'm:n' && hasGoodReason) {
+                    fb.innerHTML = '✅ <strong>Perfekt!</strong> M:N ist die korrekte Kardinalität. Deine Begründung ist überzeugend!';
+                    fb.classList.add('show', 'correct');
+                    document.getElementById('solution-relationship').style.display = 'block';
+                    scores['page-5c'] = Math.max(scores['page-5c'], 4);
+                } else if (cardinality && cardinality.value === 'm:n') {
+                    fb.innerHTML = '✅ <strong>Richtig!</strong> M:N ist korrekt. Hier ist eine bessere Begründung: Ein Mitglied kann in mehreren Kursen sein UND ein Kurs kann mehrere Mitglieder haben.';
+                    fb.classList.add('show', 'correct');
+                    document.getElementById('solution-relationship').style.display = 'block';
+                    scores['page-5c'] = Math.max(scores['page-5c'], 3);
+                } else {
+                    fb.innerHTML = '❌ <strong>Überprüfe deine Antwort.</strong> Ein Mitglied kann in mehreren Kursen sein, und ein Kurs hat mehrere Mitglieder. Das ist eine M:N Beziehung!';
+                    fb.classList.add('show');
+                    fb.classList.remove('correct');
+                }
+                updateProgress();
+            }
+            
+            else if (taskType === 'diagram') {
+                const description = document.getElementById('er-diagram-description').value.trim();
+                const fb = feedback.diagram;
+                
+                if (description.length > 5) {
+                    fb.innerHTML = '✅ <strong>Ausgezeichnet!</strong> Du hast dein ER-Diagramm fertiggestellt. Vergleiche es mit der Musterlösung unten.';
+                    fb.classList.add('show', 'correct');
+                    scores['page-5c'] = Math.max(scores['page-5c'], 5);
+                } else {
+                    fb.innerHTML = '⚠️ <strong>Bitte tragen Sie ein,</strong> dass Sie Ihr Diagramm gezeichnet haben oder beschreiben Sie es kurz.';
+                    fb.classList.add('show');
+                    fb.classList.remove('correct');
+                }
+                updateProgress();
+            }
+        }
+
+        // Check room task and show solutions
+        function checkRoomTask() {
+            const entity = document.getElementById('answer-entity').value.trim();
+            const cardinality = document.getElementById('answer-cardinalität').value.trim();
+            const attribute = document.getElementById('answer-attribute').value.trim();
+            const fb = document.getElementById('ermodel-feedback');
+            
+            if (entity.length > 10 && cardinality.length > 10 && attribute.length > 10) {
+                fb.innerHTML = '✅ <strong>Gut!</strong> Du hast dich ausführlich mit den Fragen auseinandergesetzt. Hier sind die Musterlösungen:';
+                fb.classList.add('show', 'correct');
+                document.getElementById('room-solutions').style.display = 'block';
+                scores['page-5b'] = Math.max(scores['page-5b'], 3);
+                updateProgress();
+            } else {
+                fb.innerHTML = '❌ <strong>Bitte ausfüllen.</strong> Beantworte alle drei Fragen ausführlich (jeweils mindestens 10 Zeichen).';
+                fb.classList.add('show');
+                fb.classList.remove('correct');
+            }
+        }
+
+        // Check reflections and show solutions
+        function checkReflections() {
+            const reflect1 = document.getElementById('reflect-1').value.trim();
+            const reflect2 = document.getElementById('reflect-2').value.trim();
+            const reflect3 = document.getElementById('reflect-3').value.trim();
+            const fb = document.getElementById('feedback-reflect');
+            
+            if (reflect1.length > 10 && reflect2.length > 10) {
+                fb.innerHTML = '✅ <strong>Gut!</strong> Du hast dich mit den Fragen auseinandergesetzt. Hier sind die Musterlösungen:';
+                fb.classList.add('show', 'correct');
+                document.getElementById('reflection-solutions').style.display = 'block';
+                scores['page-5c'] = Math.max(scores['page-5c'], 5);
+                updateProgress();
+            } else {
+                fb.innerHTML = '❌ <strong>Bitte ausfüllen.</strong> Beantworte mindestens die ersten beiden Fragen ausführlich (jeweils mindestens 10 Zeichen).';
+                fb.classList.add('show');
+                fb.classList.remove('correct');
+            }
+        }
+
+        // Toggle fitness solution visibility
+        function toggleFitnessSolution() {
+            const solution = document.getElementById('fitness-solution');
+            const button = event.target;
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+                button.textContent = 'Lösung verbergen';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-primary');
+            } else {
+                solution.style.display = 'none';
+                button.textContent = 'Lösung anzeigen';
             }
         }
 
